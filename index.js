@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
 
+const CategoriaController = require('./controllers/categorias')
+const routes = require('./routes')//como tem o index, não precisa ser ./routes/index
+
 const knex = require('knex')
 const db = knex({
     client: 'mysql2',
@@ -23,9 +26,6 @@ db.on('query', query => {
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-const homeController = require('./controllers/home')
-const CategoriaController = require('./controllers/categorias')
-const ProdutoController = require('./controllers/produto')
 
 //Middleware => ele vai interceptar o fluxo, assim que feito, continua o fluxo
 //app.use((req,res,next)=>{ vai interceptar toda requisição
@@ -40,12 +40,7 @@ app.use(async (req, res, next) => {
     next()//para continuar o fluxo
 })
 
-app.get('/', homeController.getIndex)
-
-//injetando o db
-app.get('/categoria/:id/:slug', CategoriaController.getCategoria(db))
-
-app.get('/produto/:id/:slug', ProdutoController.getProduto(db))
+app.use(routes(db))
 
 app.listen(port, (err) => {
     if (err) {
