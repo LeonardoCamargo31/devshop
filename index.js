@@ -20,47 +20,32 @@ db.on('query', query => {
     //console.log(query)
 })
 
-
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-const Categoria = require('./models/categoria')
-const Produto = require('./models/produto')
+const homeController = require('./controllers/home')
+const CategoriaController = require('./controllers/categorias')
+const ProdutoController = require('./controllers/produto')
 
 //Middleware => ele vai interceptar o fluxo, assim que feito, continua o fluxo
 //app.use((req,res,next)=>{ vai interceptar toda requisição
 //app.use('/',(req,res,next)=>{ então vai interceptar só a home 
-app.use(async (req,res,next)=>{
-    const categorias = await Categoria.getCategorias(db)();
+app.use(async (req, res, next) => {
+    const categorias = await CategoriaController.getCategorias(db)
     //forma de enviar dados de um middleware, para frente da aplicação, pegando esse dado em outro ponto
     //como em outra requisição ou na view locals.categorias
-    res.locals ={
+    res.locals = {
         categorias
     }
     next()//para continuar o fluxo
 })
 
-app.get('/', async (req, res) => {
-    
-    res.render('home')
-})
+app.get('/', homeController.getIndex)
 
-app.get('/categoria/:id/:slug', async (req, res) => {
-    //passo o db, e depois chamo a função
-    const produtos = await Produto.getProdutosPorIdCategoria(db)(req.params.id)
-    const categoria = await Categoria.getCategoriaPorId(db)(req.params.id)
-    res.render('categoria', {
-        categoria,
-        produtos
-    })
-})
+//injetando o db
+app.get('/categoria/:id/:slug', CategoriaController.getCategoria(db))
 
-app.get('/produto/:id/:slug', async (req, res) => {
-    const produto = await Produto.getProdutoPorId(db)(req.params.id)
-    res.render('produto-detalhe', {
-        produto
-    })
-})
+app.get('/produto/:id/:slug', ProdutoController.getProduto(db))
 
 app.listen(port, (err) => {
     if (err) {
