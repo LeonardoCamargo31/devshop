@@ -39,10 +39,20 @@ app.get('/categoria/:id/:slug', async (req, res) => {
     const categorias = await Categoria.getCategorias(db)();
     const produtos = await Produto.getProdutosPorIdCategoria(db)(req.params.id)
     const categoria = await Categoria.getCategoriaPorId(db)(req.params.id)
-    res.render('category', {
+    res.render('categoria', {
         categoria,
         categorias,
         produtos
+    })
+})
+
+
+app.get('/produto/:id/:slug', async (req, res) => {
+    const categorias = await Categoria.getCategorias(db)();
+    const produto = await Produto.getProdutoPorId(db)(req.params.id)
+    res.render('produto-detalhe', {
+        categorias,
+        produto
     })
 })
 
