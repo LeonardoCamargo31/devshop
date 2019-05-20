@@ -1,9 +1,4 @@
-const express = require('express')
-const app = express()
 const port = process.env.PORT || 3000
-
-const CategoriaController = require('./controllers/categorias')
-const routes = require('./routes')//como tem o index, não precisa ser ./routes/index
 
 const knex = require('knex')
 const db = knex({
@@ -17,30 +12,13 @@ const db = knex({
     }
 })
 
+const app = require('./app')(db)
+
 //debug das queries executadas
 //quero checar o evento query, temos um callback, que nos retorna a query
 db.on('query', query => {
-    //console.log(query)
+    //console.log('SQL',query)
 })
-
-app.set('view engine', 'ejs')
-app.use(express.static('public'))
-
-
-//Middleware => ele vai interceptar o fluxo, assim que feito, continua o fluxo
-//app.use((req,res,next)=>{ vai interceptar toda requisição
-//app.use('/',(req,res,next)=>{ então vai interceptar só a home 
-app.use(async (req, res, next) => {
-    const categorias = await CategoriaController.getCategorias(db)
-    //forma de enviar dados de um middleware, para frente da aplicação, pegando esse dado em outro ponto
-    //como em outra requisição ou na view locals.categorias
-    res.locals = {
-        categorias
-    }
-    next()//para continuar o fluxo
-})
-
-app.use(routes(db))
 
 app.listen(port, (err) => {
     if (err) {
