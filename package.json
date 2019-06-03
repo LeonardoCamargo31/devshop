@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "ejs": "^2.6.1",
     "express": "^4.17.0",
     "knex": "^0.17.0-next3",

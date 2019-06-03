@@ -20,6 +20,9 @@ db.on('query', query => {
     //console.log('SQL',query)
 })
 
+const usuario = require('./models/usuario')
+usuario.iniciaUsuario(db)()//passo db e executo
+
 app.listen(port, (err) => {
     if (err) {
         console.log('Não foi possível iniciar o servidor')
