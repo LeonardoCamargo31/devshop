@@ -13,16 +13,28 @@ const iniciaUsuario = (db) => async () => {
         const usuario = {
             nome: 'Admin',
             email: 'admin@devshop.com.br',
-            senha: gerarHash('minhasenha123!'),
+            senha: gerarHash('123'),
             email_checado: true,
             criado: new Date(),
             alterado: new Date(),
-            tipo_usuario:'admin,financeiro,cliente'
+            tipo_usuario: 'admin,financeiro,cliente'
         }
         await db('usuarios').insert(usuario)
     }
 }
 
+const login = (db) => async (email, senha) => {
+    const usuario = await db('usuarios').select('*').where('email', email)
+    if (usuario.length === 0) {
+        throw new Error('Usuário inválido.')
+    }
+    if (!bcrypt.compareSync(senha, usuario[0].senha)) {
+        throw new Error('Senha inválida.')
+    }
+    return usuario[0]
+}
+
 module.exports = {
-    iniciaUsuario
+    iniciaUsuario,
+    login
 }
