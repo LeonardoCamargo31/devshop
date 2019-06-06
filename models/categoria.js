@@ -30,8 +30,20 @@ const criarCategoria = (db) => async (categoria) => {
     return true
 }
 
+const editarCategoria = (db) => async (id, categoria) => {
+    const value = validacao.valida(categoria, criarSchema)
+    await db('categorias').where({ id }).update(value)
+    return true
+}
+
+const removerCategoria = db => async (id) => {
+    await db('categorias').where({ id }).del()
+}
+
 module.exports = {
     getCategorias,
     getCategoriaPorId,
-    criarCategoria
+    criarCategoria,
+    removerCategoria,
+    editarCategoria
 }

@@ -1,0 +1,54 @@
+<%- include('../header')%>
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg-primary">
+    <div class="container clearfix">
+        <h2 class="title-page">Admin</h2>
+
+        <nav class="float-left">
+            <ol class="breadcrumb text-white">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Categorias</a></li>
+                <li class="breadcrumb-item" aria-current="page">Editar categoria</li>
+            </ol>
+        </nav>
+    </div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION INTRO END// ========================= -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content bg padding-y">
+    <div class="container">
+
+        <div class="row">
+            <main class="col-sm-12">
+                <div class="card">
+                    <header class="card-header">
+                        <h4 class="card-title mt-2">Editar categoria</h4>
+                    </header>
+                    <article class="card-body">
+                        <form method="POST">
+                            <div class="form-group">
+                                <label>Categoria</label>
+                                <input type="text" name="categoria" class="form-control <% if(erros && erros.indexOf('categoria')>=0){ %>is-invalid<% } %>" placeholder="" value="<%= formulario.categoria%>">
+                                <div class="invalid-feedback">Informe a categoria corretamente</div>
+                            </div> <!-- form-row end.// -->
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea name="descricao" class="form-control <% if(erros && erros.indexOf('descricao')>=0){ %>is-invalid<% } %>"><%= formulario.descricao%></textarea>
+                                <div class="invalid-feedback">Informe a descrição corretamente</div>
+                            </div> <!-- form-group end.// -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Alterar</button>
+                            </div> <!-- form-group// -->
+                        </form>
+                    </article> <!-- card-body end .// -->
+                </div> <!-- card.// -->
+            </main> <!-- col.// -->
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+
+
+<%- include('../../partials/footer')%>

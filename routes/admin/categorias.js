@@ -8,8 +8,10 @@ const init = (db) => {
     router.get('/nova', CategoriaController.adminCriarCategoria(db))
     router.post('/nova', CategoriaController.adminCriarCategoria(db))
 
-    router.get('/editar/:id', CategoriaController.adminGetCategorias(db))
-    router.get('/excluir/:id', CategoriaController.adminGetCategorias(db))
+    router.get('/editar/:id', CategoriaController.adminEditarCategoria(db))
+    router.post('/editar/:id', CategoriaController.adminEditarCategoria(db))
+
+    router.get('/excluir/:id', CategoriaController.adminRemoverCategoria(db))
     return router
 }
 
