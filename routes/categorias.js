@@ -4,11 +4,11 @@ const init = (db) => {
     //e depois podemos adicionar esse roteador pro meu projeto principal
     const express = require('express')
     const router = express.Router()//criando um novo roteador
-    const CategoriaController = require('../controllers/categorias')
+    const CategoriaController = require('../controllers/categorias')(db)
 
     //injetando o db
     //aqui não temos mais app, então router.get
-    router.get('/:id/:slug', CategoriaController.getCategoria(db))
+    router.get('/:id/:slug', CategoriaController.getCategoria)
     return router
 }
 

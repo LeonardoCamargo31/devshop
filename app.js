@@ -6,7 +6,7 @@ const init = (db) => {
     const session = require('express-session')
     const app = express()
 
-    const CategoriaController = require('./controllers/categorias')
+    const CategoriaController = require('./controllers/categorias')(db)
     const routes = require('./routes')//como tem o index, não precisa ser ./routes/index
 
     app.set('view engine', 'ejs')
@@ -25,7 +25,7 @@ const init = (db) => {
     //app.use((req,res,next)=>{ vai interceptar toda requisição
     //app.use('/',(req,res,next)=>{ então vai interceptar só a home 
     app.use(async (req, res, next) => {
-        const categorias = await CategoriaController.getCategorias(db)
+        const categorias = await CategoriaController.getCategorias()
         //forma de enviar dados de um middleware, para frente da aplicação, pegando esse dado em outro ponto
         //como em outra requisição ou na view locals.categorias
 
