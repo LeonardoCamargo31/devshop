@@ -98,7 +98,7 @@
                                             <a class="dropdown-item" href="#">Meus pedidos</a>
                                         <% } %>
                                         <% if(usuario.tipo_usuario.indexOf('admin')>=0){ %>
-                                            <a class="dropdown-item" href="#">Painel administrativo</a>
+                                            <a class="dropdown-item" href="/admin">Painel administrativo</a>
                                         <% } %>
                                         <% if(usuario.tipo_usuario.indexOf('financeiro')>=0){ %>
                                             <a class="dropdown-item" href="#">Painel financeiro</a>
@@ -119,11 +119,11 @@
                                     <form class="px-4 py-3" action="/login" method="POST">
                                         <div class="form-group">
                                             <label>E-mail</label>
-                                            <input type="email" class="form-control" name="email" placeholder="email@example.com">
+                                            <input type="email" class="form-control" name="email" placeholder="email@example.com" value="admin@devshop.com.br">
                                         </div>
                                         <div class="form-group">
                                             <label>Senha</label>
-                                            <input type="password" class="form-control" name="password" placeholder="Senha">
+                                            <input type="password" class="form-control" name="password" placeholder="Senha" value="123">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Entrar</button>
                                     </form>

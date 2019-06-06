@@ -19,6 +19,9 @@ const init = (db) => {
         }
     })
 
+    router.get('/',(req,res)=>{
+        res.render('admin/index')
+    })
     //router.use('/produto', produtoRouter(db))
     router.use('/categorias', categoriaRouter(db))
 

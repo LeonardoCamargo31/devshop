@@ -17,6 +17,26 @@ const getCategorias = async (db) => {
 }
 
 
+const adminCriarCategoria = (db) => async (req, res) => {
+    if (req.method === 'POST') {
+        try {
+            const { categoria, descricao } = req.body
+            await Categoria.criarCategoria(db)({ categoria, descricao })
+            res.redirect('/admin/categorias')
+        } catch (err) {
+            res.render('admin/categorias/nova', {
+                formulario: req.body,
+                erros: err.erros.campos
+            })
+        }
+    } else {
+        res.render('admin/categorias/nova', {
+            formulario: {},
+            erros: []
+        })
+    }
+}
+
 const adminGetCategorias = (db) => async (req, res) => {
     const categoria = await Categoria.getCategorias(db)()
     res.render('admin/categorias/index', {
@@ -27,5 +47,6 @@ const adminGetCategorias = (db) => async (req, res) => {
 module.exports = {
     getCategoria,
     getCategorias,
-    adminGetCategorias
+    adminGetCategorias,
+    adminCriarCategoria
 }
