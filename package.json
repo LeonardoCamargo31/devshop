@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +20,8 @@
     "express-session": "^1.16.1",
     "knex": "^0.17.0-next3",
     "mysql2": "^1.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

@@ -5,7 +5,7 @@ const init = db => {
     //injetando o db
     const getCategoria = async (req, res) => {
         //passo o db, e depois chamo a função
-        const produtos = await Produto.getProdutosPorIdCategoria(req.params.id)
+        const produtos = await Produto.getProdutosPorIdCategoria(req.params.id,req.query)
         const categoria = await Categoria.getCategoriaPorId(req.params.id)
         res.render('categoria', {
             categoria,
